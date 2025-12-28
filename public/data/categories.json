@@ -1,0 +1,808 @@
+[
+  {
+    "id": "tecnologia",
+    "name": {
+      "es": "Tecnología",
+      "en": "Technology"
+    },
+    "subcategories": [
+      {
+        "id": "televisores",
+        "name": {
+          "es": "Televisores",
+          "en": "Televisions"
+        }
+      },
+      {
+        "id": "computo",
+        "name": {
+          "es": "Cómputo",
+          "en": "Computing"
+        }
+      },
+      {
+        "id": "telefonia",
+        "name": {
+          "es": "Telefonía",
+          "en": "Telephony"
+        }
+      },
+      {
+        "id": "consolas",
+        "name": {
+          "es": "Consolas",
+          "en": "Gaming Consoles"
+        }
+      },
+      {
+        "id": "audio",
+        "name": {
+          "es": "Audio",
+          "en": "Audio"
+        }
+      },
+      {
+        "id": "set-gamer",
+        "name": {
+          "es": "Set gamer",
+          "en": "Gaming Set"
+        }
+      },
+      {
+        "id": "camaras-drones",
+        "name": {
+          "es": "Cámaras y Drones",
+          "en": "Cameras and Drones"
+        }
+      },
+      {
+        "id": "smarthome",
+        "name": {
+          "es": "Smarthome",
+          "en": "Smart Home"
+        }
+      },
+      {
+        "id": "tablets",
+        "name": {
+          "es": "Tablets",
+          "en": "Tablets"
+        }
+      },
+      {
+        "id": "smartwatch",
+        "name": {
+          "es": "Smartwatch",
+          "en": "Smartwatch"
+        }
+      }
+    ]
+  },
+  {
+    "id": "mascotas",
+    "name": {
+      "es": "Mascotas",
+      "en": "Pets"
+    },
+    "subcategories": [
+      {
+        "id": "perros",
+        "name": {
+          "es": "Perros",
+          "en": "Dogs"
+        }
+      },
+      {
+        "id": "gatos",
+        "name": {
+          "es": "Gatos",
+          "en": "Cats"
+        }
+      },
+      {
+        "id": "aves",
+        "name": {
+          "es": "Aves",
+          "en": "Birds"
+        }
+      },
+      {
+        "id": "peces",
+        "name": {
+          "es": "Peces",
+          "en": "Fish"
+        }
+      },
+      {
+        "id": "roedores",
+        "name": {
+          "es": "Roedores",
+          "en": "Rodents"
+        }
+      },
+      {
+        "id": "accesorios-mascotas",
+        "name": {
+          "es": "Accesorios",
+          "en": "Accessories"
+        }
+      }
+    ]
+  },
+  {
+    "id": "deporte-aire-libre",
+    "name": {
+      "es": "Deporte y Aire Libre",
+      "en": "Sports and Outdoors"
+    },
+    "subcategories": [
+      {
+        "id": "fitness",
+        "name": {
+          "es": "Fitness",
+          "en": "Fitness"
+        }
+      },
+      {
+        "id": "ciclismo",
+        "name": {
+          "es": "Ciclismo",
+          "en": "Cycling"
+        }
+      },
+      {
+        "id": "running",
+        "name": {
+          "es": "Running",
+          "en": "Running"
+        }
+      },
+      {
+        "id": "natacion",
+        "name": {
+          "es": "Natación",
+          "en": "Swimming"
+        }
+      },
+      {
+        "id": "camping",
+        "name": {
+          "es": "Camping",
+          "en": "Camping"
+        }
+      },
+      {
+        "id": "futbol",
+        "name": {
+          "es": "Fútbol",
+          "en": "Soccer"
+        }
+      },
+      {
+        "id": "basquetbol",
+        "name": {
+          "es": "Básquetbol",
+          "en": "Basketball"
+        }
+      },
+      {
+        "id": "tenis",
+        "name": {
+          "es": "Tenis",
+          "en": "Tennis"
+        }
+      }
+    ]
+  },
+  {
+    "id": "belleza-salud",
+    "name": {
+      "es": "Belleza y salud",
+      "en": "Beauty and Health"
+    },
+    "subcategories": [
+      {
+        "id": "cuidado-facial",
+        "name": {
+          "es": "Cuidado Facial",
+          "en": "Facial Care"
+        }
+      },
+      {
+        "id": "cuidado-corporal",
+        "name": {
+          "es": "Cuidado Corporal",
+          "en": "Body Care"
+        }
+      },
+      {
+        "id": "maquillaje",
+        "name": {
+          "es": "Maquillaje",
+          "en": "Makeup"
+        }
+      },
+      {
+        "id": "perfumes",
+        "name": {
+          "es": "Perfumes",
+          "en": "Perfumes"
+        }
+      },
+      {
+        "id": "cabello",
+        "name": {
+          "es": "Cabello",
+          "en": "Hair Care"
+        }
+      },
+      {
+        "id": "salud-sexual",
+        "name": {
+          "es": "Salud Sexual",
+          "en": "Sexual Health"
+        }
+      },
+      {
+        "id": "suplementos",
+        "name": {
+          "es": "Suplementos",
+          "en": "Supplements"
+        }
+      }
+    ]
+  },
+  {
+    "id": "electrohogar",
+    "name": {
+      "es": "Electrohogar",
+      "en": "Home Appliances"
+    },
+    "subcategories": [
+      {
+        "id": "refrigeradores",
+        "name": {
+          "es": "Refrigeradores",
+          "en": "Refrigerators"
+        }
+      },
+      {
+        "id": "lavadoras",
+        "name": {
+          "es": "Lavadoras",
+          "en": "Washing Machines"
+        }
+      },
+      {
+        "id": "microondas",
+        "name": {
+          "es": "Microondas",
+          "en": "Microwaves"
+        }
+      },
+      {
+        "id": "aspiradoras",
+        "name": {
+          "es": "Aspiradoras",
+          "en": "Vacuum Cleaners"
+        }
+      },
+      {
+        "id": "licuadoras",
+        "name": {
+          "es": "Licuadoras",
+          "en": "Blenders"
+        }
+      },
+      {
+        "id": "hornos",
+        "name": {
+          "es": "Hornos",
+          "en": "Ovens"
+        }
+      },
+      {
+        "id": "ventiladores",
+        "name": {
+          "es": "Ventiladores",
+          "en": "Fans"
+        }
+      },
+      {
+        "id": "aire-acondicionado",
+        "name": {
+          "es": "Aire Acondicionado",
+          "en": "Air Conditioning"
+        }
+      }
+    ]
+  },
+  {
+    "id": "moda",
+    "name": {
+      "es": "Moda",
+      "en": "Fashion"
+    },
+    "subcategories": [
+      {
+        "id": "ropa-mujer",
+        "name": {
+          "es": "Ropa de Mujer",
+          "en": "Women's Clothing"
+        }
+      },
+      {
+        "id": "ropa-hombre",
+        "name": {
+          "es": "Ropa de Hombre",
+          "en": "Men's Clothing"
+        }
+      },
+      {
+        "id": "ropa-ninos",
+        "name": {
+          "es": "Ropa de Niños",
+          "en": "Kids Clothing"
+        }
+      },
+      {
+        "id": "zapatos",
+        "name": {
+          "es": "Zapatos",
+          "en": "Shoes"
+        }
+      },
+      {
+        "id": "accesorios-moda",
+        "name": {
+          "es": "Accesorios",
+          "en": "Accessories"
+        }
+      },
+      {
+        "id": "relojes",
+        "name": {
+          "es": "Relojes",
+          "en": "Watches"
+        }
+      },
+      {
+        "id": "bolsos",
+        "name": {
+          "es": "Bolsos",
+          "en": "Bags"
+        }
+      },
+      {
+        "id": "joyeria",
+        "name": {
+          "es": "Joyería",
+          "en": "Jewelry"
+        }
+      }
+    ]
+  },
+  {
+    "id": "hogar",
+    "name": {
+      "es": "Hogar",
+      "en": "Home"
+    },
+    "subcategories": [
+      {
+        "id": "muebles",
+        "name": {
+          "es": "Muebles",
+          "en": "Furniture"
+        }
+      },
+      {
+        "id": "decoracion",
+        "name": {
+          "es": "Decoración",
+          "en": "Decoration"
+        }
+      },
+      {
+        "id": "iluminacion",
+        "name": {
+          "es": "Iluminación",
+          "en": "Lighting"
+        }
+      },
+      {
+        "id": "cocina",
+        "name": {
+          "es": "Cocina",
+          "en": "Kitchen"
+        }
+      },
+      {
+        "id": "baño",
+        "name": {
+          "es": "Baño",
+          "en": "Bathroom"
+        }
+      },
+      {
+        "id": "ropa-cama",
+        "name": {
+          "es": "Ropa de Cama",
+          "en": "Bedding"
+        }
+      },
+      {
+        "id": "jardin",
+        "name": {
+          "es": "Jardín",
+          "en": "Garden"
+        }
+      },
+      {
+        "id": "herramientas",
+        "name": {
+          "es": "Herramientas",
+          "en": "Tools"
+        }
+      }
+    ]
+  },
+  {
+    "id": "alimentos-bebidas",
+    "name": {
+      "es": "Alimentos y Bebidas",
+      "en": "Food and Beverages"
+    },
+    "subcategories": [
+      {
+        "id": "bebidas",
+        "name": {
+          "es": "Bebidas",
+          "en": "Beverages"
+        }
+      },
+      {
+        "id": "snacks",
+        "name": {
+          "es": "Snacks",
+          "en": "Snacks"
+        }
+      },
+      {
+        "id": "productos-lacteos",
+        "name": {
+          "es": "Productos Lácteos",
+          "en": "Dairy Products"
+        }
+      },
+      {
+        "id": "carnes",
+        "name": {
+          "es": "Carnes",
+          "en": "Meat"
+        }
+      },
+      {
+        "id": "frutas-verduras",
+        "name": {
+          "es": "Frutas y Verduras",
+          "en": "Fruits and Vegetables"
+        }
+      },
+      {
+        "id": "despensa",
+        "name": {
+          "es": "Despensa",
+          "en": "Pantry"
+        }
+      }
+    ]
+  },
+  {
+    "id": "juguetes-hobbies",
+    "name": {
+      "es": "Juguetes y Hobbies",
+      "en": "Toys and Hobbies"
+    },
+    "subcategories": [
+      {
+        "id": "juguetes-ninos",
+        "name": {
+          "es": "Juguetes para Niños",
+          "en": "Kids Toys"
+        }
+      },
+      {
+        "id": "figuras-coleccionables",
+        "name": {
+          "es": "Figuras Coleccionables",
+          "en": "Collectible Figures"
+        }
+      },
+      {
+        "id": "rompecabezas",
+        "name": {
+          "es": "Rompecabezas",
+          "en": "Puzzles"
+        }
+      },
+      {
+        "id": "juegos-mesa",
+        "name": {
+          "es": "Juegos de Mesa",
+          "en": "Board Games"
+        }
+      },
+      {
+        "id": "instrumentos-musicales",
+        "name": {
+          "es": "Instrumentos Musicales",
+          "en": "Musical Instruments"
+        }
+      },
+      {
+        "id": "arte-manualidades",
+        "name": {
+          "es": "Arte y Manualidades",
+          "en": "Arts and Crafts"
+        }
+      }
+    ]
+  },
+  {
+    "id": "libros-musica",
+    "name": {
+      "es": "Libros y Música",
+      "en": "Books and Music"
+    },
+    "subcategories": [
+      {
+        "id": "libros-fisicos",
+        "name": {
+          "es": "Libros Físicos",
+          "en": "Physical Books"
+        }
+      },
+      {
+        "id": "libros-digitales",
+        "name": {
+          "es": "Libros Digitales",
+          "en": "E-books"
+        }
+      },
+      {
+        "id": "revistas",
+        "name": {
+          "es": "Revistas",
+          "en": "Magazines"
+        }
+      },
+      {
+        "id": "musica-digital",
+        "name": {
+          "es": "Música Digital",
+          "en": "Digital Music"
+        }
+      },
+      {
+        "id": "vinilos",
+        "name": {
+          "es": "Vinilos",
+          "en": "Vinyl Records"
+        }
+      },
+      {
+        "id": "peliculas-series",
+        "name": {
+          "es": "Películas y Series",
+          "en": "Movies and TV Shows"
+        }
+      }
+    ]
+  },
+  {
+    "id": "automotriz",
+    "name": {
+      "es": "Automotriz",
+      "en": "Automotive"
+    },
+    "subcategories": [
+      {
+        "id": "accesorios-auto",
+        "name": {
+          "es": "Accesorios para Auto",
+          "en": "Car Accessories"
+        }
+      },
+      {
+        "id": "repuestos",
+        "name": {
+          "es": "Repuestos",
+          "en": "Spare Parts"
+        }
+      },
+      {
+        "id": "neumaticos",
+        "name": {
+          "es": "Neumáticos",
+          "en": "Tires"
+        }
+      },
+      {
+        "id": "herramientas-auto",
+        "name": {
+          "es": "Herramientas",
+          "en": "Tools"
+        }
+      },
+      {
+        "id": "car-audio",
+        "name": {
+          "es": "Audio para Auto",
+          "en": "Car Audio"
+        }
+      },
+      {
+        "id": "mantenimiento",
+        "name": {
+          "es": "Mantenimiento",
+          "en": "Maintenance"
+        }
+      }
+    ]
+  },
+  {
+    "id": "bebes-ninos",
+    "name": {
+      "es": "Bebés y Niños",
+      "en": "Babies and Kids"
+    },
+    "subcategories": [
+      {
+        "id": "cunas-accesorios",
+        "name": {
+          "es": "Cunas y Accesorios",
+          "en": "Cribs and Accessories"
+        }
+      },
+      {
+        "id": "carritos-bebe",
+        "name": {
+          "es": "Carritos de Bebé",
+          "en": "Baby Strollers"
+        }
+      },
+      {
+        "id": "alimentacion-bebe",
+        "name": {
+          "es": "Alimentación",
+          "en": "Feeding"
+        }
+      },
+      {
+        "id": "juguetes-bebes",
+        "name": {
+          "es": "Juguetes para Bebés",
+          "en": "Baby Toys"
+        }
+      },
+      {
+        "id": "ropa-bebes",
+        "name": {
+          "es": "Ropa para Bebés",
+          "en": "Baby Clothing"
+        }
+      },
+      {
+        "id": "seguridad",
+        "name": {
+          "es": "Seguridad",
+          "en": "Safety"
+        }
+      }
+    ]
+  },
+  {
+    "id": "salud-bienestar",
+    "name": {
+      "es": "Salud y Bienestar",
+      "en": "Health and Wellness"
+    },
+    "subcategories": [
+      {
+        "id": "equipos-medicos",
+        "name": {
+          "es": "Equipos Médicos",
+          "en": "Medical Equipment"
+        }
+      },
+      {
+        "id": "monitores-salud",
+        "name": {
+          "es": "Monitores de Salud",
+          "en": "Health Monitors"
+        }
+      },
+      {
+        "id": "terapia-fisica",
+        "name": {
+          "es": "Terapia Física",
+          "en": "Physical Therapy"
+        }
+      },
+      {
+        "id": "masaje",
+        "name": {
+          "es": "Masaje",
+          "en": "Massage"
+        }
+      },
+      {
+        "id": "yoga-pilates",
+        "name": {
+          "es": "Yoga y Pilates",
+          "en": "Yoga and Pilates"
+        }
+      },
+      {
+        "id": "medicamentos",
+        "name": {
+          "es": "Medicamentos",
+          "en": "Medications"
+        }
+      }
+    ]
+  },
+  {
+    "id": "oficina-escuela",
+    "name": {
+      "es": "Oficina y Escuela",
+      "en": "Office and School"
+    },
+    "subcategories": [
+      {
+        "id": "utiles-escuela",
+        "name": {
+          "es": "Útiles Escolares",
+          "en": "School Supplies"
+        }
+      },
+      {
+        "id": "mochilas",
+        "name": {
+          "es": "Mochilas",
+          "en": "Backpacks"
+        }
+      },
+      {
+        "id": "articulos-oficina",
+        "name": {
+          "es": "Artículos de Oficina",
+          "en": "Office Supplies"
+        }
+      },
+      {
+        "id": "muebles-oficina",
+        "name": {
+          "es": "Muebles de Oficina",
+          "en": "Office Furniture"
+        }
+      },
+      {
+        "id": "impresoras",
+        "name": {
+          "es": "Impresoras",
+          "en": "Printers"
+        }
+      },
+      {
+        "id": "papeleria",
+        "name": {
+          "es": "Papelería",
+          "en": "Stationery"
+        }
+      }
+    ]
+  }
+]
+

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from "react";
 import {
   Box,
   Button,
@@ -14,48 +14,110 @@ import {
   VStack,
   Flex,
   InputGroup,
-  Stat,
 } from "@chakra-ui/react";
-import { FiSearch, FiTrendingDown, FiShoppingCart, FiStar, FiExternalLink } from "react-icons/fi";
+import {
+  FiSearch,
+  FiTrendingDown,
+  FiShoppingCart,
+  FiStar,
+  FiExternalLink,
+} from "react-icons/fi";
+import { useTranslation } from "react-i18next";
+import { ColorModeButton } from "@/components/ui/color-mode";
+import { LanguageSelector } from "./components/LanguageSelector";
+import { productsService } from "./services/products.service";
+import { useDynamicColors } from "@/utils/dinamicColors";
+import { SideBarFilters } from "./components/SideBarFilters";
 
 function App() {
+  const { t, i18n } = useTranslation();
+  const DYNAMIC_COLORS = useDynamicColors();
   const [searchTerm, setSearchTerm] = useState("");
   const [hasSearched, setHasSearched] = useState(false);
+  const [products, setProducts] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<{
+    category: string | null;
+    subcategory: string | null;
+  }>({
+    category: null,
+    subcategory: null,
+  });
+  const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const mockProducts = [
-    {
-      id: 1,
-      name: "iPhone 15 Pro 256GB",
-      image: "https://images.unsplash.com/photo-1696446702183-cbd50b06550b?w=400&h=300&fit=crop",
-      stores: [
-        { name: "Amazon", price: 1199, discount: 15, rating: 4.8, stock: true },
-        { name: "Best Buy", price: 1249, discount: 10, rating: 4.6, stock: true },
-        { name: "Walmart", price: 1189, discount: 18, rating: 4.7, stock: false },
-      ],
-      lowestPrice: 1189,
-    },
-    {
-      id: 2,
-      name: "iPhone 15 128GB",
-      image: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400&h=300&fit=crop",
-      stores: [
-        { name: "Amazon", price: 899, discount: 10, rating: 4.9, stock: true },
-        { name: "Target", price: 929, discount: 5, rating: 4.5, stock: true },
-        { name: "Best Buy", price: 899, discount: 10, rating: 4.7, stock: true },
-      ],
-      lowestPrice: 899,
-    },
-    {
-      id: 3,
-      name: "iPhone 14 Pro Max 512GB",
-      image: "https://images.unsplash.com/photo-1678652197950-91e3da85d96a?w=400&h=300&fit=crop",
-      stores: [
-        { name: "Amazon", price: 1099, discount: 20, rating: 4.8, stock: true },
-        { name: "Walmart", price: 1149, discount: 15, rating: 4.6, stock: true },
-      ],
-      lowestPrice: 1099,
-    },
-  ];
+  useEffect(() => {
+    const loadBestProducts = async () => {
+      setIsLoading(true);
+      try {
+        const response = await productsService.getBestProducts(
+          selectedCategory.category,
+          selectedCategory.subcategory
+        );
+        setProducts(response || []);
+      } catch (error) {
+        console.error("Error al cargar mejores productos:", error);
+        setProducts([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadBestProducts();
+  }, [selectedCategory]);
+
+  // Debounce effect para buscar productos
+  useEffect(() => {
+    // Limpiar el timer anterior si existe
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+
+    // Si el término de búsqueda está vacío, cargar mejores productos
+    if (!searchTerm.trim()) {
+      setHasSearched(false);
+      const loadBestProducts = async () => {
+        setIsLoading(true);
+        try {
+          const response = await productsService.getBestProducts(
+            selectedCategory.category,
+            selectedCategory.subcategory
+          );
+          setProducts(response || []);
+        } catch (error) {
+          console.error("Error al cargar mejores productos:", error);
+          setProducts([]);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      loadBestProducts();
+      return;
+    }
+
+    // Configurar un nuevo timer para el debounce (500ms)
+    debounceTimerRef.current = setTimeout(async () => {
+      setIsLoading(true);
+      setHasSearched(true);
+
+      try {
+        const response = await productsService.getProducts(searchTerm, selectedCategory.category, selectedCategory.subcategory);
+        setProducts(response || []);
+      } catch (error) {
+        console.error("Error al buscar productos:", error);
+        setProducts([]);
+      } finally {
+        setIsLoading(false);
+      }
+    }, 500);
+
+    // Cleanup: limpiar el timer si el componente se desmonta o el searchTerm cambia
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+    };
+  }, [searchTerm, selectedCategory]);
 
   const handleSearch = () => {
     if (searchTerm.trim()) {
@@ -64,275 +126,508 @@ function App() {
   };
 
   return (
-    <Box minH="100vh">
+    <Box minH="100vh" bg={DYNAMIC_COLORS.sectionBg}>
       {/* Header */}
-      <Box bg="white" borderBottom="1px" borderColor="gray.200" py={4}>
-        <Container maxW="6xl">
+      <Box
+        bg={DYNAMIC_COLORS.headerBg}
+        borderBottom="1px"
+        borderColor={DYNAMIC_COLORS.headerBorder}
+        py={4}
+        position="sticky"
+        top={0}
+        zIndex={100}
+        shadow="sm"
+      >
+        <Container maxW="7xl">
           <Flex justify="space-between" align="center">
-            <Heading size="lg" color="blue.600">PriceCompare</Heading>
+            <Heading
+              size="lg"
+              color={DYNAMIC_COLORS.headerTitleColor}
+            >
+              {t("header.title")}
+            </Heading>
             <HStack gap={4}>
-              <Button variant="ghost" size="sm">Categorías</Button>
-              <Button variant="ghost" size="sm">Ofertas</Button>
-              <Button variant="ghost" size="sm">Ayuda</Button>
+              <LanguageSelector />
+              <ColorModeButton />
             </HStack>
           </Flex>
         </Container>
       </Box>
 
       {/* Hero Section */}
-      <Box bg="gradient-to-r" bgGradient="linear(to-r, blue.500, purple.600)" py={20}>
-        <Container maxW="6xl">
-            <Stack align="center" textAlign="center" gap={6}>
-            <Badge colorScheme="green" fontSize="sm" px={3} py={1} borderRadius="full">
-              Más de 1 millón de productos comparados
-            </Badge>
-            
-            <Heading size="2xl" color="white" maxW="3xl">
-              Encuentra los Mejores Precios en Segundos
+      <Box
+        bgGradient={DYNAMIC_COLORS.heroGradient}
+        bg={DYNAMIC_COLORS.heroBg}
+        py={20}
+      >
+        <Container maxW="7xl">
+          <Stack align="center" textAlign="center" gap={6}>
+            <Heading
+              size="2xl"
+              color={DYNAMIC_COLORS.heroTitleColor}
+              maxW="4xl"
+            >
+              {t("hero.title")}
             </Heading>
 
-            <Text fontSize="xl" color="whiteAlpha.900" maxW="2xl">
-              Compara precios de miles de tiendas online. Ahorra tiempo y dinero con decisiones inteligentes.
+            <Text
+              fontSize="xl"
+              color={DYNAMIC_COLORS.heroSubtitleColor}
+              maxW="3xl"
+            >
+              {t("hero.subtitle")}
             </Text>
 
-            <Box w="100%" maxW="2xl">
-              {/* <InputGroup size="lg">
-                <InputLeftElement pointerEvents="none">
-                  <FiSearch color="rgb(156, 163, 175)" size={20} />
-                </InputLeftElement>
+            <Box w="100%" maxW="3xl" position="relative">
+              <Box
+                position="absolute"
+                left="20px"
+                top="50%"
+                transform="translateY(-50%)"
+                zIndex={2}
+                pointerEvents="none"
+              >
+                <FiSearch
+                  color={DYNAMIC_COLORS.searchIconColor}
+                  size={22}
+                />
+              </Box>
+              <InputGroup>
                 <Input
-                  placeholder="Busca cualquier producto... (ej: iPhone 15, laptop gaming)"
-                  bg="white"
+                  size="xl"
+                  placeholder={t("hero.searchPlaceholder")}
+                  bg={DYNAMIC_COLORS.inputBg}
+                  color={DYNAMIC_COLORS.inputColor}
+                  borderColor={DYNAMIC_COLORS.inputBorderColor}
+                  _placeholder={{
+                    color: DYNAMIC_COLORS.inputPlaceholderColor,
+                  }}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                  onKeyPress={(e) => e.key === "Enter" && handleSearch()}
                   borderRadius="full"
-                  pr="140px"
+                  pl="60px"
+                  pr="160px"
+                  fontSize="md"
+                  _focus={{
+                    borderColor: DYNAMIC_COLORS.inputFocusBorder,
+                    boxShadow: DYNAMIC_COLORS.inputFocusShadow,
+                  }}
                 />
-                <Button
-                  position="absolute"
-                  right="4px"
-                  top="4px"
-                  colorScheme="blue"
-                  borderRadius="full"
-                  px={8}
-                  onClick={handleSearch}
-                >
-                  Comparar
-                </Button>
-              </InputGroup> */}
+              </InputGroup>
+              <Button
+                position="absolute"
+                right="6px"
+                top="6px"
+                colorScheme="blue"
+                borderRadius="full"
+                px={10}
+                h="calc(100% - 12px)"
+                onClick={handleSearch}
+                loading={isLoading}
+                fontSize="md"
+                fontWeight="semibold"
+              >
+                {t("hero.searchButton")}
+              </Button>
             </Box>
 
-            <HStack gap={8} pt={4}>
-              <HStack>
-                <FiTrendingDown color="rgb(134, 239, 172)" size={20} />
-                <Text color="whiteAlpha.900" fontSize="sm">Ahorra hasta 40%</Text>
+            <HStack gap={10} pt={6} flexWrap="wrap" justify="center">
+              <HStack gap={2}>
+                <FiTrendingDown
+                  color={DYNAMIC_COLORS.badgeColor}
+                  size={22}
+                />
+                <Text
+                  color={DYNAMIC_COLORS.badgeTextColor}
+                  fontSize="md"
+                  fontWeight="medium"
+                >
+                  {t("hero.saveUpTo")}
+                </Text>
               </HStack>
-              <HStack>
-                <FiShoppingCart color="rgb(134, 239, 172)" size={20} />
-                <Text color="whiteAlpha.900" fontSize="sm">100+ Tiendas</Text>
+              <HStack gap={2}>
+                <FiShoppingCart
+                  color={DYNAMIC_COLORS.badgeColor}
+                  size={22}
+                />
+                <Text
+                  color={DYNAMIC_COLORS.badgeTextColor}
+                  fontSize="md"
+                  fontWeight="medium"
+                >
+                  {t("hero.stores")}
+                </Text>
               </HStack>
-              <HStack>
-                <FiStar color="rgb(134, 239, 172)" size={20} />
-                <Text color="whiteAlpha.900" fontSize="sm">Datos en tiempo real</Text>
+              <HStack gap={2}>
+                <FiStar
+                  color={DYNAMIC_COLORS.badgeColor}
+                  size={22}
+                />
+                <Text
+                  color={DYNAMIC_COLORS.badgeTextColor}
+                  fontSize="md"
+                  fontWeight="medium"
+                >
+                  {t("hero.realTime")}
+                </Text>
               </HStack>
             </HStack>
           </Stack>
         </Container>
       </Box>
 
-      {/* Stats Section */}
-      <Container maxW="6xl" py={12}>
-        <SimpleGrid columns={{ base: 1, md: 3 }} gap={8}>
-          <Card.Root>
-            <Card.Body>
-              <Stat.Root>
-                <Stat.Label>Ahorro Promedio</Stat.Label>
-                {/* <Stat.Number color="green.500">$187</Stat.Number> */}
-                <Stat.HelpText>por compra comparada</Stat.HelpText>
-              </Stat.Root>
-            </Card.Body>
-          </Card.Root>
-          <Card.Root>
-            <Card.Body>
-              <Stat.Root>
-                <Stat.Label>Productos Comparados</Stat.Label>
-                {/* <Stat.Number color="blue.500">1.2M+</Stat.Number> */}
-                <Stat.HelpText>actualizados diariamente</Stat.HelpText>
-              </Stat.Root>
-            </Card.Body>
-          </Card.Root>
-          <Card.Root>
-            <Card.Body>
-              <Stat.Root>
-                <Stat.Label>Usuarios Activos</Stat.Label>
-                {/* <Stat.Number color="purple.500">500K+</Stat.Number> */}
-                <Stat.HelpText>comparando precios hoy</Stat.HelpText>
-              </Stat.Root>
-            </Card.Body>
-          </Card.Root>
-        </SimpleGrid>
-      </Container>
-
       {/* Results Section */}
-      {hasSearched && (
-        <Container maxW="6xl" py={12}>
-          <VStack align="stretch" gap={6}>
-            <Flex justify="space-between" align="center">
-              <Box>
-                <Heading size="lg">Resultados para "{searchTerm || 'iPhone'}"</Heading>
-                <Text color="gray.600" mt={1}>{mockProducts.length} productos encontrados</Text>
-              </Box>
-              <HStack>
-                <Button variant="outline" size="sm">Precio: Menor a Mayor</Button>
-                <Button variant="outline" size="sm">Filtros</Button>
-              </HStack>
-            </Flex>
+      <Container maxW="7xl" py={12}>
+        <VStack align="stretch" gap={8}>
+          <Flex justify="space-between" align="center" flexWrap="wrap" gap={4}>
+            <Box>
+              <Heading size="xl" mb={2} color={DYNAMIC_COLORS.headingColor}>
+                {hasSearched
+                  ? t("results.title", { searchTerm })
+                  : t("results.bestDeals")}
+              </Heading>
+              <Text color={DYNAMIC_COLORS.textMuted} fontSize="md">
+                {isLoading
+                  ? t("results.loading")
+                  : t("results.productsFound", { count: products.length })}
+              </Text>
+            </Box>
+            <HStack gap={3}>
+              <Button
+                variant="outline"
+                size="md"
+                borderColor={DYNAMIC_COLORS.buttonBorderColor}
+                color={DYNAMIC_COLORS.headingColor}
+                onClick={() => {
+                  setIsFilterDrawerOpen(true);
+                }}
+                _hover={{
+                  bg: DYNAMIC_COLORS.buttonHoverBg,
+                  borderColor: DYNAMIC_COLORS.buttonHoverBorder,
+                }}
+              >
+                {t("results.filters")}
+              </Button>
+            </HStack>
+          </Flex>
 
-            <SimpleGrid columns={{ base: 1, lg: 2, xl: 3 }} gap={6}>
-              {mockProducts.map((product) => (
-                <Card.Root key={product.id} overflow="hidden" _hover={{ shadow: "xl", transform: "translateY(-4px)" }} transition="all 0.3s">
-                  <Box h="200px" w="100%" overflow="hidden">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      style={{ width: '100%', height: '200px', objectFit: 'cover' }}
-                    />
-                  </Box>
-                  <Card.Body>
-                    <VStack align="stretch" gap={4}>
-                      <Box>
-                        <Heading size="md" mb={2}>{product.name}</Heading>
-                        <HStack>
-                          <Badge colorScheme="green">Desde ${product.lowestPrice}</Badge>
-                          <Badge colorScheme="blue">{product.stores.length} tiendas</Badge>
-                        </HStack>
-                      </Box>
+          {isLoading ? (
+            <Box textAlign="center" py={16}>
+              <Text color={DYNAMIC_COLORS.textMuted} fontSize="lg">
+                {t("results.loading")}
+              </Text>
+            </Box>
+          ) : products.length === 0 ? (
+            <Box textAlign="center" py={16}>
+              <Text color={DYNAMIC_COLORS.textMuted} fontSize="lg">
+                {hasSearched
+                  ? t("results.noProducts", { searchTerm })
+                  : t("results.noProductsAvailable")}
+              </Text>
+            </Box>
+          ) : (
+            <SimpleGrid columns={{ base: 1, md: 2, lg: 3, xl: 4 }} gap={6}>
+              {products.map((product: any, index: number) => {
+                const latestPrice =
+                  product.price_history[product.price_history.length - 1]
+                    ?.price || 0;
+                const lowestPrice = Math.min(
+                  ...product.price_history.map((entry: any) => entry.price)
+                );
 
+                return (
+                  <Card.Root
+                    key={`${product.name}-${index}`}
+                    overflow="hidden"
+                    bg={DYNAMIC_COLORS.cardBg}
+                    _hover={{ shadow: "xl", transform: "translateY(-4px)" }}
+                    transition="all 0.3s"
+                  >
+                    <Box
+                      h="220px"
+                      w="100%"
+                      overflow="hidden"
+                      bg={DYNAMIC_COLORS.noImageBg}
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                    >
+                      <Text color={DYNAMIC_COLORS.textMuted} fontSize="sm">
+                        {t("results.noImage")}
+                      </Text>
+                    </Box>
+                    <Card.Body>
+                      <VStack align="stretch" gap={4}>
+                        <Box>
+                          <Heading
+                            size="md"
+                            mb={3}
+                            color={DYNAMIC_COLORS.headingColor}
+                          >
+                            {product.name}
+                          </Heading>
+                          <HStack gap={2} flexWrap="wrap">
+                            <Badge
+                              colorScheme="green"
+                              fontSize="sm"
+                              px={2}
+                              py={1}
+                            >
+                              {t("results.from")} ${lowestPrice}
+                            </Badge>
+                            <Badge
+                              colorScheme="blue"
+                              fontSize="sm"
+                              px={2}
+                              py={1}
+                            >
+                              {product.store}
+                            </Badge>
+                          </HStack>
+                        </Box>
 
-                      <VStack align="stretch" gap={3}>
-                        {product.stores.slice(0, 2).map((store, idx) => (
-                          <Flex key={idx} justify="space-between" align="center" p={3} bg="gray.50" borderRadius="md">
+                        <VStack align="stretch" gap={3}>
+                          <Flex
+                            justify="space-between"
+                            align="center"
+                            p={4}
+                            bg={DYNAMIC_COLORS.cardHoverBg}
+                            borderRadius="lg"
+                          >
                             <VStack align="start" gap={1}>
-                              <Text fontWeight="bold" fontSize="sm">{store.name}</Text>
-                              <HStack>
-                                <FiStar color="rgb(251, 191, 36)" size={12} />
-                                <Text fontSize="xs" color="gray.600">{store.rating}</Text>
-                              </HStack>
-                            </VStack>
-                            <VStack align="end" gap={0}>
-                              <Text fontSize="xl" fontWeight="bold" color="blue.600">
-                                ${store.price}
+                              <Text
+                                fontWeight="bold"
+                                fontSize="sm"
+                                color={DYNAMIC_COLORS.headingColor}
+                              >
+                                {product.store}
                               </Text>
-                              {store.discount > 0 && (
-                                <Badge colorScheme="red" fontSize="xs">-{store.discount}%</Badge>
+                              <Text
+                                fontSize="xs"
+                                color={DYNAMIC_COLORS.textMuted}
+                              >
+                                {product.category[
+                                  i18n.language as "es" | "en"
+                                ] || product.category.es}
+                              </Text>
+                            </VStack>
+                            <VStack align="end" gap={1}>
+                              <Text
+                                fontSize="2xl"
+                                fontWeight="bold"
+                                color={DYNAMIC_COLORS.productPriceColor}
+                              >
+                                ${latestPrice}
+                              </Text>
+                              {lowestPrice < latestPrice && (
+                                <Badge colorScheme="red" fontSize="xs" px={2}>
+                                  {t("results.best")}: ${lowestPrice}
+                                </Badge>
                               )}
                             </VStack>
                           </Flex>
-                        ))}
-                      </VStack>
+                        </VStack>
 
-                      <Button
-                        colorScheme="blue"
-                        size="sm"
-                        w="100%"
-                      >
-                        Ver todas las ofertas
-                        <FiExternalLink size={16} style={{ marginLeft: '8px' }} />
-                      </Button>
-                    </VStack>
-                  </Card.Body>
-                </Card.Root>
-              ))}
-            </SimpleGrid>
-          </VStack>
-        </Container>
-      )}
-
-      {/* Features Section */}
-      {!hasSearched && (
-        <Container maxW="6xl" py={16}>
-          <VStack gap={12}>
-            <VStack textAlign="center" gap={4}>
-              <Heading size="xl">¿Por qué usar PriceCompare?</Heading>
-              <Text color="gray.600" fontSize="lg" maxW="2xl">
-                La forma más inteligente de comprar online
-              </Text>
-            </VStack>
-
-            <SimpleGrid columns={{ base: 1, md: 3 }} gap={8}>
-              {[
-                {
-                  icon: FiTrendingDown,
-                  title: "Ahorra Dinero",
-                  description: "Encuentra automáticamente los precios más bajos de múltiples tiendas confiables."
-                },
-                {
-                  icon: FiStar,
-                  title: "Datos Verificados",
-                  description: "Información actualizada en tiempo real con calificaciones y reseñas verificadas."
-                },
-                {
-                  icon: FiShoppingCart,
-                  title: "Compra Segura",
-                  description: "Solo trabajamos con tiendas certificadas y de confianza para tu seguridad."
-                }
-              ].map((feature, idx) => {
-                const IconComponent = feature.icon;
-                return (
-                  <Card.Root key={idx} textAlign="center" p={6}>
-                    <Card.Body>
-                      <VStack gap={4}>
-                        <Box p={4} bg="blue.50" borderRadius="full">
-                          <IconComponent size={32} color="rgb(59, 130, 246)" />
-                        </Box>
-                        <Heading size="md">{feature.title}</Heading>
-                        <Text color="gray.600">{feature.description}</Text>
+                        <Button
+                          colorScheme="blue"
+                          size="md"
+                          w="100%"
+                          variant="solid"
+                        >
+                          {t("results.viewDetails")}
+                          <FiExternalLink
+                            size={16}
+                            style={{ marginLeft: "8px" }}
+                          />
+                        </Button>
                       </VStack>
                     </Card.Body>
                   </Card.Root>
                 );
               })}
             </SimpleGrid>
+          )}
+        </VStack>
+      </Container>
+
+      {/* Features Section */}
+      <Container maxW="7xl" py={20}>
+        <VStack gap={16}>
+          <VStack textAlign="center" gap={4}>
+            <Heading size="2xl" color={DYNAMIC_COLORS.headingColor}>
+              {t("features.title")}
+            </Heading>
+            <Text color={DYNAMIC_COLORS.textMuted} fontSize="xl" maxW="3xl">
+              {t("features.subtitle")}
+            </Text>
           </VStack>
-        </Container>
-      )}
+
+          <SimpleGrid columns={{ base: 1, md: 3 }} gap={8}>
+            {[
+              {
+                icon: FiTrendingDown,
+                title: t("features.saveMoney.title"),
+                description: t("features.saveMoney.description"),
+              },
+              {
+                icon: FiStar,
+                title: t("features.verifiedData.title"),
+                description: t("features.verifiedData.description"),
+              },
+              {
+                icon: FiShoppingCart,
+                title: t("features.safePurchase.title"),
+                description: t("features.safePurchase.description"),
+              },
+            ].map((feature, idx) => {
+              const IconComponent = feature.icon;
+              return (
+                <Card.Root
+                  key={idx}
+                  textAlign="center"
+                  p={8}
+                  bg={DYNAMIC_COLORS.featureCardBg}
+                  _hover={{ shadow: "lg" }}
+                  transition="all 0.3s"
+                >
+                  <Card.Body>
+                    <VStack gap={5}>
+                      <Box
+                        p={5}
+                        bg={DYNAMIC_COLORS.featureIconBg}
+                        borderRadius="full"
+                      >
+                        <IconComponent
+                          size={36}
+                          color={DYNAMIC_COLORS.featureIconColor}
+                        />
+                      </Box>
+                      <Heading size="lg" color={DYNAMIC_COLORS.headingColor}>
+                        {feature.title}
+                      </Heading>
+                      <Text
+                        color={DYNAMIC_COLORS.textMuted}
+                        fontSize="md"
+                        lineHeight="tall"
+                      >
+                        {feature.description}
+                      </Text>
+                    </VStack>
+                  </Card.Body>
+                </Card.Root>
+              );
+            })}
+          </SimpleGrid>
+        </VStack>
+      </Container>
 
       {/* Footer */}
-      <Box bg="gray.800" color="white" py={12} mt={16}>
-        <Container maxW="6xl">
-          <SimpleGrid columns={{ base: 1, md: 4 }} gap={8}>
-            <VStack align="start">
-              <Heading size="md" color="blue.300">PriceCompare</Heading>
+      <Box bg={DYNAMIC_COLORS.footerBg} color="white" py={16} mt={20}>
+        <Container maxW="7xl">
+          <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap={10}>
+            <VStack align="start" gap={3}>
+              <Heading size="lg" color="blue.300">
+                {t("header.title")}
+              </Heading>
               <Text fontSize="sm" color="gray.400">
-                Tu aliado para compras inteligentes
+                {t("footer.tagline")}
               </Text>
             </VStack>
-            <VStack align="start">
-              <Text fontWeight="bold">Productos</Text>
-              <Text fontSize="sm" color="gray.400">Electrónicos</Text>
-              <Text fontSize="sm" color="gray.400">Hogar</Text>
-              <Text fontSize="sm" color="gray.400">Moda</Text>
+            <VStack align="start" gap={3}>
+              <Text fontWeight="bold" fontSize="md">
+                {t("footer.products")}
+              </Text>
+              <Text
+                fontSize="sm"
+                color="gray.400"
+                _hover={{ color: "white", cursor: "pointer" }}
+              >
+                {t("footer.electronics")}
+              </Text>
+              <Text
+                fontSize="sm"
+                color="gray.400"
+                _hover={{ color: "white", cursor: "pointer" }}
+              >
+                {t("footer.home")}
+              </Text>
+              <Text
+                fontSize="sm"
+                color="gray.400"
+                _hover={{ color: "white", cursor: "pointer" }}
+              >
+                {t("footer.fashion")}
+              </Text>
             </VStack>
-            <VStack align="start">
-              <Text fontWeight="bold">Compañía</Text>
-              <Text fontSize="sm" color="gray.400">Sobre Nosotros</Text>
-              <Text fontSize="sm" color="gray.400">Blog</Text>
-              <Text fontSize="sm" color="gray.400">Contacto</Text>
+            <VStack align="start" gap={3}>
+              <Text fontWeight="bold" fontSize="md">
+                {t("footer.company")}
+              </Text>
+              <Text
+                fontSize="sm"
+                color="gray.400"
+                _hover={{ color: "white", cursor: "pointer" }}
+              >
+                {t("footer.about")}
+              </Text>
+              <Text
+                fontSize="sm"
+                color="gray.400"
+                _hover={{ color: "white", cursor: "pointer" }}
+              >
+                {t("footer.blog")}
+              </Text>
+              <Text
+                fontSize="sm"
+                color="gray.400"
+                _hover={{ color: "white", cursor: "pointer" }}
+              >
+                {t("footer.contact")}
+              </Text>
             </VStack>
-            <VStack align="start">
-              <Text fontWeight="bold">Legal</Text>
-              <Text fontSize="sm" color="gray.400">Privacidad</Text>
-              <Text fontSize="sm" color="gray.400">Términos</Text>
-              <Text fontSize="sm" color="gray.400">Cookies</Text>
+            <VStack align="start" gap={3}>
+              <Text fontWeight="bold" fontSize="md">
+                {t("footer.legal")}
+              </Text>
+              <Text
+                fontSize="sm"
+                color="gray.400"
+                _hover={{ color: "white", cursor: "pointer" }}
+              >
+                {t("footer.privacy")}
+              </Text>
+              <Text
+                fontSize="sm"
+                color="gray.400"
+                _hover={{ color: "white", cursor: "pointer" }}
+              >
+                {t("footer.terms")}
+              </Text>
+              <Text
+                fontSize="sm"
+                color="gray.400"
+                _hover={{ color: "white", cursor: "pointer" }}
+              >
+                {t("footer.cookies")}
+              </Text>
             </VStack>
           </SimpleGrid>
-          {/* <Divider my={8} borderColor="gray.700" /> */}
-          <Text textAlign="center" fontSize="sm" color="gray.400">
-            © 2024 PriceCompare. Todos los derechos reservados.
-          </Text>
+          <Box mt={12} pt={8} borderTop="1px" borderColor="gray.700">
+            <Text textAlign="center" fontSize="sm" color="gray.400">
+              {t("footer.copyright")}
+            </Text>
+          </Box>
         </Container>
       </Box>
+
+      {/* Filter Drawer */}
+      <SideBarFilters
+        isFilterDrawerOpen={isFilterDrawerOpen}
+        setIsFilterDrawerOpen={setIsFilterDrawerOpen}
+        setSelectedCategory={setSelectedCategory}
+        selectedCategory={selectedCategory}
+      />
     </Box>
   );
 }

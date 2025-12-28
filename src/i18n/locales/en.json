@@ -1,0 +1,70 @@
+{
+  "header": {
+    "title": "PriceCompare",
+    "categories": "Categories",
+    "deals": "Deals",
+    "help": "Help"
+  },
+  "hero": {
+    "title": "Find the Best Prices in Seconds",
+    "subtitle": "Compare prices from thousands of online stores. Save time and money with smart decisions.",
+    "searchPlaceholder": "Search for any product... (e.g: iPhone 15, gaming laptop)",
+    "searchButton": "Compare",
+    "saveUpTo": "Save money",
+    "stores": "100+ Stores",
+    "realTime": "Real-time data"
+  },
+  "results": {
+    "title": "Results for \"{{searchTerm}}\"",
+    "bestDeals": "Best Deals",
+    "loading": "Loading...",
+    "productsFound": "{{count}} products found",
+    "noProducts": "No products found for \"{{searchTerm}}\"",
+    "noProductsAvailable": "No products available",
+    "filters": "Filters",
+    "from": "From",
+    "closeMenu": "Close menu",
+    "searchByCategories": "Search by categories",
+    "allCategories": "All categories",
+    "selectedAllSubcategories": "All subcategories",
+    "backToMainMenu": "Back to main menu",
+    "backToAllCategories": "Back to all categories",
+    "seeAll": "See all",
+    "best": "Best",
+    "viewDetails": "View details",
+    "noImage": "No image"
+  },
+  "features": {
+    "title": "Why use PriceCompare?",
+    "subtitle": "The smartest way to shop online",
+    "saveMoney": {
+      "title": "Save Money",
+      "description": "Automatically find the lowest prices from multiple trusted stores."
+    },
+    "verifiedData": {
+      "title": "Verified Data",
+      "description": "Real-time updated information with verified ratings and reviews."
+    },
+    "safePurchase": {
+      "title": "Safe Purchase",
+      "description": "We only work with certified and trusted stores for your security."
+    }
+  },
+  "footer": {
+    "tagline": "Your ally for smart shopping",
+    "products": "Products",
+    "electronics": "Electronics",
+    "home": "Home",
+    "fashion": "Fashion",
+    "company": "Company",
+    "about": "About Us",
+    "blog": "Blog",
+    "contact": "Contact",
+    "legal": "Legal",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "cookies": "Cookies",
+    "copyright": "© 2024 PriceCompare. All rights reserved."
+  }
+}
+

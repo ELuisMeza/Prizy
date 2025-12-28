@@ -1,0 +1,70 @@
+{
+  "header": {
+    "title": "PriceCompare",
+    "categories": "Categorías",
+    "deals": "Ofertas",
+    "help": "Ayuda"
+  },
+  "hero": {
+    "title": "Encuentra los Mejores Precios en Segundos",
+    "subtitle": "Compara precios de miles de tiendas online. Ahorra tiempo y dinero con decisiones inteligentes.",
+    "searchPlaceholder": "Busca cualquier producto... (ej: iPhone 15, laptop gaming)",
+    "searchButton": "Comparar",
+    "saveUpTo": "Ahorra dinero",
+    "stores": "100+ Tiendas",
+    "realTime": "Datos en tiempo real"
+  },
+  "results": {
+    "title": "Resultados para \"{{searchTerm}}\"",
+    "bestDeals": "Mejores Ofertas",
+    "loading": "Cargando...",
+    "productsFound": "{{count}} productos encontrados",
+    "noProducts": "No se encontraron productos para \"{{searchTerm}}\"",
+    "noProductsAvailable": "No hay productos disponibles",
+    "filters": "Filtros",
+    "from": "Desde",
+    "closeMenu": "Cerrar menú",
+    "searchByCategories": "Buscar por categorías",
+    "allCategories": "Todas las categorías",
+    "selectedAllSubcategories": "Todas las subcategorías",
+    "backToMainMenu": "Regresar al menú principal",
+    "backToAllCategories": "Regresar a todas las categorías",
+    "seeAll": "Ver todo",
+    "best": "Mejor",
+    "viewDetails": "Ver detalles",
+    "noImage": "Sin imagen"
+  },
+  "features": {
+    "title": "¿Por qué usar PriceCompare?",
+    "subtitle": "La forma más inteligente de comprar online",
+    "saveMoney": {
+      "title": "Ahorra Dinero",
+      "description": "Encuentra automáticamente los precios más bajos de múltiples tiendas confiables."
+    },
+    "verifiedData": {
+      "title": "Datos Verificados",
+      "description": "Información actualizada en tiempo real con calificaciones y reseñas verificadas."
+    },
+    "safePurchase": {
+      "title": "Compra Segura",
+      "description": "Solo trabajamos con tiendas certificadas y de confianza para tu seguridad."
+    }
+  },
+  "footer": {
+    "tagline": "Tu aliado para compras inteligentes",
+    "products": "Productos",
+    "electronics": "Electrónicos",
+    "home": "Hogar",
+    "fashion": "Moda",
+    "company": "Compañía",
+    "about": "Sobre Nosotros",
+    "blog": "Blog",
+    "contact": "Contacto",
+    "legal": "Legal",
+    "privacy": "Privacidad",
+    "terms": "Términos",
+    "cookies": "Cookies",
+    "copyright": "© 2024 PriceCompare. Todos los derechos reservados."
+  }
+}
+

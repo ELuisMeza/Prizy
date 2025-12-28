@@ -1,0 +1,66 @@
+import type { TypeProduct } from "@/types/product.types";
+import { apiClient } from "./api.client";
+
+export const productsService = {
+  getProducts: async (productName: string, category: string | null, subcategory: string | null) => {
+    const response = await apiClient.get<TypeProduct[]>("/data/products.json");
+    let filteredProducts = response.data;
+    
+    // Filtrar por categoría si está seleccionada
+    if (category) {
+      filteredProducts = filteredProducts.filter((product: TypeProduct) => {
+        return product.category.es === category || product.category.en === category;
+      });
+    }
+    
+    // Filtrar por subcategoría si está seleccionada
+    if (subcategory) {
+      filteredProducts = filteredProducts.filter((product: TypeProduct) => {
+        return product.subcategory.es === subcategory || product.subcategory.en === subcategory;
+      });
+    }
+    
+    // Filtrar por término de búsqueda si existe
+    const searchTerm = productName.toLowerCase().trim();
+    if (searchTerm) {
+      const searchWords = searchTerm.split(/\s+/).filter(word => word.length > 0);
+      
+      filteredProducts = filteredProducts.filter((product: TypeProduct) => {
+        const productNameLower = product.name.toLowerCase();
+        const productWords = productNameLower.split(/\s+/);
+        
+        return searchWords.some((searchWord: string) => 
+          productWords.some((productWord: string) => productWord === searchWord)
+        );
+      });
+    }
+    
+    return filteredProducts;
+  },
+
+  getBestProducts: async (category: string | null = null, subcategory: string | null = null) => {
+    const response = await apiClient.get<TypeProduct[]>("/data/products.json");
+    let filteredProducts = response.data;
+
+    // Filtrar por categoría si está seleccionada
+    if (category) {
+      filteredProducts = filteredProducts.filter((product: TypeProduct) => {
+        return product.category.es === category || product.category.en === category;
+      });
+    }
+    
+    // Filtrar por subcategoría si está seleccionada
+    if (subcategory) {
+      filteredProducts = filteredProducts.filter((product: TypeProduct) => {
+        return product.subcategory.es === subcategory || product.subcategory.en === subcategory;
+      });
+    }
+
+    // Calcular el precio más bajo de cada producto en su historial y ordenar
+    return filteredProducts.sort((a, b) => {
+      const lowestPriceA = Math.min(...a.price_history.map((entry) => entry.price));
+      const lowestPriceB = Math.min(...b.price_history.map((entry) => entry.price));
+      return lowestPriceA - lowestPriceB;
+    });
+  }
+};

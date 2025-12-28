@@ -1,0 +1,158 @@
+[
+  {
+    "name": "iPhone 13 128GB Midnight",
+    "category": {
+      "es": "Tecnología",
+      "en": "Technology"
+    },
+    "subcategory": {
+      "es": "Telefonía",
+      "en": "Telephony"
+    },
+    "store": "TechStore Perú",
+    "price_history": [
+      { "month": "2024-01", "price": 2899 },
+      { "month": "2024-02", "price": 2899 },
+      { "month": "2024-03", "price": 2799 },
+      { "month": "2024-04", "price": 2799 },
+      { "month": "2024-05", "price": 2699 },
+      { "month": "2024-06", "price": 2699 },
+      { "month": "2024-07", "price": 2599 },
+      { "month": "2024-08", "price": 2599 },
+      { "month": "2024-09", "price": 2499 },
+      { "month": "2024-10", "price": 2499 },
+      { "month": "2024-11", "price": 2399 },
+      { "month": "2024-12", "price": 2399 }
+    ]
+  },
+  {
+    "name": "Apple iPhone 13 128GB Azul",
+    "category": {
+      "es": "Tecnología",
+      "en": "Technology"
+    },
+    "subcategory": {
+      "es": "Telefonía",
+      "en": "Telephony"
+    },
+    "store": "Mobile World",
+    "price_history": [
+      { "month": "2024-01", "price": 2950 },
+      { "month": "2024-02", "price": 2950 },
+      { "month": "2024-03", "price": 2850 },
+      { "month": "2024-04", "price": 2850 },
+      { "month": "2024-05", "price": 2750 },
+      { "month": "2024-06", "price": 2750 },
+      { "month": "2024-07", "price": 2650 },
+      { "month": "2024-08", "price": 2650 },
+      { "month": "2024-09", "price": 2550 },
+      { "month": "2024-10", "price": 2550 },
+      { "month": "2024-11", "price": 2450 },
+      { "month": "2024-12", "price": 2450 }
+    ]
+  },
+  {
+    "name": "iPhone 13 256GB Starlight",
+    "category": {
+      "es": "Tecnología",
+      "en": "Technology"
+    },
+    "subcategory": {
+      "es": "Telefonía",
+      "en": "Telephony"
+    },
+    "store": "ElectroSmart",
+    "price_history": [
+      { "month": "2024-01", "price": 3199 },
+      { "month": "2024-02", "price": 3199 },
+      { "month": "2024-03", "price": 3099 },
+      { "month": "2024-04", "price": 3099 },
+      { "month": "2024-05", "price": 2999 },
+      { "month": "2024-06", "price": 2999 },
+      { "month": "2024-07", "price": 2899 },
+      { "month": "2024-08", "price": 2899 },
+      { "month": "2024-09", "price": 2799 },
+      { "month": "2024-10", "price": 2799 },
+      { "month": "2024-11", "price": 2699 },
+      { "month": "2024-12", "price": 2699 }
+    ]
+  },
+  {
+    "name": "Samsung Galaxy S23 256GB Phantom Black",
+    "category": {
+      "es": "Tecnología",
+      "en": "Technology"
+    },
+    "subcategory": {
+      "es": "Telefonía",
+      "en": "Telephony"
+    },
+    "store": "Mobile World",
+    "price_history": [
+      { "month": "2024-01", "price": 2699 },
+      { "month": "2024-02", "price": 2699 },
+      { "month": "2024-03", "price": 2599 },
+      { "month": "2024-04", "price": 2599 },
+      { "month": "2024-05", "price": 2499 },
+      { "month": "2024-06", "price": 2499 },
+      { "month": "2024-07", "price": 2399 },
+      { "month": "2024-08", "price": 2399 },
+      { "month": "2024-09", "price": 2299 },
+      { "month": "2024-10", "price": 2299 },
+      { "month": "2024-11", "price": 2199 },
+      { "month": "2024-12", "price": 2199 }
+    ]
+  },
+  {
+    "name": "Galaxy S23 256GB Green Edition",
+    "category": {
+      "es": "Tecnología",
+      "en": "Technology"
+    },
+    "subcategory": {
+      "es": "Telefonía",
+      "en": "Telephony"
+    },
+    "store": "ElectroSmart",
+    "price_history": [
+      { "month": "2024-01", "price": 2750 },
+      { "month": "2024-02", "price": 2750 },
+      { "month": "2024-03", "price": 2650 },
+      { "month": "2024-04", "price": 2650 },
+      { "month": "2024-05", "price": 2550 },
+      { "month": "2024-06", "price": 2550 },
+      { "month": "2024-07", "price": 2450 },
+      { "month": "2024-08", "price": 2450 },
+      { "month": "2024-09", "price": 2350 },
+      { "month": "2024-10", "price": 2350 },
+      { "month": "2024-11", "price": 2250 },
+      { "month": "2024-12", "price": 2250 }
+    ]
+  },
+  {
+    "name": "Samsung S23 Fan Edition 128GB",
+    "category": {
+      "es": "Tecnología",
+      "en": "Technology"
+    },
+    "subcategory": {
+      "es": "Telefonía",
+      "en": "Telephony"
+    },
+    "store": "TechStore Perú",
+    "price_history": [
+      { "month": "2024-01", "price": 2199 },
+      { "month": "2024-02", "price": 2199 },
+      { "month": "2024-03", "price": 2099 },
+      { "month": "2024-04", "price": 2099 },
+      { "month": "2024-05", "price": 1999 },
+      { "month": "2024-06", "price": 1999 },
+      { "month": "2024-07", "price": 1899 },
+      { "month": "2024-08", "price": 1899 },
+      { "month": "2024-09", "price": 1799 },
+      { "month": "2024-10", "price": 1799 },
+      { "month": "2024-11", "price": 1699 },
+      { "month": "2024-12", "price": 1699 }
+    ]
+  }
+]
