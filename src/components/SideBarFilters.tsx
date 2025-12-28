@@ -10,11 +10,11 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useDynamicColors } from "@/utils/dinamicColors";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { Category } from "@/types/product.types";
-import { categoriesService } from "@/services/categories.service";
 import { FiChevronLeft, FiChevronRight, FiX } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
+import { useGetAllCategories } from "@/hooks/useGetAllCategories";
 
 interface Props {
   isFilterDrawerOpen: boolean;
@@ -27,6 +27,8 @@ interface Props {
     category: string | null;
     subcategory: string | null;
   };
+  setSearchTerm: (searchTerm: string) => void;
+  setHasSearched: (hasSearched: boolean) => void;
 }
 
 export const SideBarFilters: React.FC<Props> = ({
@@ -34,28 +36,14 @@ export const SideBarFilters: React.FC<Props> = ({
   setIsFilterDrawerOpen,
   setSelectedCategory,
   selectedCategory,
+  setSearchTerm,
+  setHasSearched,
 }) => {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [isLoadingCategories, setIsLoadingCategories] = useState(true);
   const { t, i18n } = useTranslation();
   const DYNAMIC_COLORS = useDynamicColors();
   const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
 
-  useEffect(() => {
-    const loadCategories = async () => {
-      setIsLoadingCategories(true);
-      try {
-        const response = await categoriesService.getCategories();
-        setCategories(response || []);
-      } catch (error) {
-        setCategories([]);
-      } finally {
-        setIsLoadingCategories(false);
-      }
-    };
-
-    loadCategories();
-  }, []);
+  const { categories, isLoadingCategories } = useGetAllCategories();
 
   return (
     <Drawer.Root
@@ -86,23 +74,45 @@ export const SideBarFilters: React.FC<Props> = ({
                     currentCategory?.name.es
                   : t("results.filters")}
               </Heading>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => {
-                  setIsFilterDrawerOpen(false);
-                  setCurrentCategory(null);
-                }}
-                aria-label={
-                  currentCategory
-                    ? t("results.backToAllCategories")
-                    : t("results.closeMenu")
-                }
-                borderRadius="md"
-                _hover={{ bg: DYNAMIC_COLORS.menuItemHoverBg }}
-              >
-                <FiX size={20} />
-              </Button>
+              <HStack gap={2}>
+                {(selectedCategory?.category || selectedCategory?.subcategory) && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      setSelectedCategory({
+                        category: null,
+                        subcategory: null,
+                      });
+                      setSearchTerm("");
+                      setHasSearched(false);
+                    }}
+                    aria-label={t("results.clearFilters")}
+                    borderRadius="md"
+                    _hover={{ bg: DYNAMIC_COLORS.menuItemHoverBg }}
+                    colorScheme="red"
+                  >
+                    {t("results.clearFilters")}
+                  </Button>
+                )}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    setIsFilterDrawerOpen(false);
+                    setCurrentCategory(null);
+                  }}
+                  aria-label={
+                    currentCategory
+                      ? t("results.backToAllCategories")
+                      : t("results.closeMenu")
+                  }
+                  borderRadius="md"
+                  _hover={{ bg: DYNAMIC_COLORS.menuItemHoverBg }}
+                >
+                  <FiX size={20} />
+                </Button>
+              </HStack>
             </Flex>
           </Drawer.Header>
           <Drawer.Body p={0} overflowY="auto">
