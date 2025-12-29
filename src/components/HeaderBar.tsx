@@ -4,13 +4,14 @@ import { useDynamicColors } from "@/utils/dinamicColors";
 import { ColorModeButton } from "./ui/color-mode";
 import { useTranslation } from "react-i18next";
 import { FiMenu } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   setIsFilterDrawerOpen: (open: boolean) => void;
 }
 
 export const HeaderBar = ({ setIsFilterDrawerOpen }: Props) => {
-
+  const navigate = useNavigate();
   const DYNAMIC_COLORS = useDynamicColors();
   const { t } = useTranslation();
   
@@ -37,7 +38,14 @@ export const HeaderBar = ({ setIsFilterDrawerOpen }: Props) => {
             >
               <FiMenu size={20} />
             </Button>
-            <Heading size="lg" color={DYNAMIC_COLORS.headerTitleColor}>
+            <Heading 
+              size="lg" 
+              color={DYNAMIC_COLORS.headerTitleColor}
+              cursor="pointer"
+              onClick={() => navigate("/")}
+              _hover={{ opacity: 0.8 }}
+              transition="opacity 0.2s"
+            >
               {t("header.title")}
             </Heading>
           </HStack>
