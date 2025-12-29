@@ -169,7 +169,7 @@ export const ResultSection = ({ isLoading, products, setIsFilterDrawerOpen, hasS
       ) : (
         <>
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3, xl: 4 }} gap={6}>
-            {paginatedProducts.map((product: any, index: number) => {
+            {paginatedProducts.map((product: TypeProduct) => {
             const latestPrice =
               product.price_history[product.price_history.length - 1]
                 ?.price || 0;
@@ -352,7 +352,7 @@ export const ResultSection = ({ isLoading, products, setIsFilterDrawerOpen, hasS
                   borderColor={DYNAMIC_COLORS.buttonBorderColor}
                   color={DYNAMIC_COLORS.headingColor}
                   onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                  isDisabled={currentPage === 1}
+                  disabled={currentPage === 1}
                   _hover={{
                     bg: DYNAMIC_COLORS.buttonHoverBg,
                     borderColor: DYNAMIC_COLORS.buttonHoverBorder,
@@ -412,7 +412,7 @@ export const ResultSection = ({ isLoading, products, setIsFilterDrawerOpen, hasS
                   borderColor={DYNAMIC_COLORS.buttonBorderColor}
                   color={DYNAMIC_COLORS.headingColor}
                   onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                  isDisabled={currentPage === totalPages}
+                  disabled={currentPage === totalPages}
                   _hover={{
                     bg: DYNAMIC_COLORS.buttonHoverBg,
                     borderColor: DYNAMIC_COLORS.buttonHoverBorder,

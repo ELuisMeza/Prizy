@@ -138,18 +138,24 @@ export const ProductDetail = () => {
                       <Box
                         w="100%"
                         h="400px"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
                         overflow="hidden"
                         borderRadius="lg"
                         bg={DYNAMIC_COLORS.noImageBg}
                         mb={4}
+                        p={6}
                       >
                         <img
                           src={product.image}
                           alt={product.name}
                           style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover'
+                            maxWidth: '100%',
+                            maxHeight: '100%',
+                            width: 'auto',
+                            height: 'auto',
+                            objectFit: 'contain'
                           }}
                           onError={(e: any) => {
                             e.target.style.display = 'none';
