@@ -1,5 +1,6 @@
 [
   {
+    "id": "iphone-13-128gb-midnight-techstore-peru",
     "name": "iPhone 13 128GB Midnight",
     "category": {
       "es": "Tecnología",
@@ -26,6 +27,7 @@
     ]
   },
   {
+    "id": "apple-iphone-13-128gb-azul-mobile-world",
     "name": "Apple iPhone 13 128GB Azul",
     "category": {
       "es": "Tecnología",
@@ -52,6 +54,7 @@
     ]
   },
   {
+    "id": "iphone-13-256gb-starlight-electrosmart",
     "name": "iPhone 13 256GB Starlight",
     "category": {
       "es": "Tecnología",
@@ -78,6 +81,7 @@
     ]
   },
   {
+    "id": "samsung-galaxy-s23-256gb-phantom-black-mobile-world",
     "name": "Samsung Galaxy S23 256GB Phantom Black",
     "category": {
       "es": "Tecnología",
@@ -104,6 +108,7 @@
     ]
   },
   {
+    "id": "galaxy-s23-256gb-green-edition-electrosmart",
     "name": "Galaxy S23 256GB Green Edition",
     "category": {
       "es": "Tecnología",
@@ -130,6 +135,7 @@
     ]
   },
   {
+    "id": "samsung-s23-fan-edition-128gb-techstore-peru",
     "name": "Samsung S23 Fan Edition 128GB",
     "category": {
       "es": "Tecnología",

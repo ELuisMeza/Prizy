@@ -2,7 +2,7 @@ import type { TypeProduct } from "@/types/product.types";
 import { apiClient } from "./api.client";
 
 export const productsService = {
-  getProducts: async (productName: string, category: string | null, subcategory: string | null) => {
+  getProducts: async (productName: string, category: string | null, subcategory: string | null, limit?: number) => {
     const response = await apiClient.get<TypeProduct[]>("/data/products.json");
     let filteredProducts = response.data;
     
@@ -32,6 +32,10 @@ export const productsService = {
       });
     }
     
+    if (limit && limit > 0) {
+      filteredProducts = filteredProducts.slice(0, limit);
+    }
+    
     return filteredProducts;
   },
 
@@ -56,5 +60,11 @@ export const productsService = {
       const lowestPriceB = Math.min(...b.price_history.map((entry) => entry.price));
       return lowestPriceA - lowestPriceB;
     });
+  },
+
+  getProductById: async (id: string): Promise<TypeProduct | null> => {
+    const response = await apiClient.get<TypeProduct[]>("/data/products.json");
+    const product = response.data.find((p) => p.id === id);
+    return product || null;
   }
 };

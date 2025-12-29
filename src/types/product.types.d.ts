@@ -1,4 +1,5 @@
 export interface TypeProduct {
+  id: string;
   name: string;
   category: {
     es: string;

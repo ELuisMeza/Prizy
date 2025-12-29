@@ -67,6 +67,25 @@
     "terms": "Terms",
     "cookies": "Cookies",
     "copyright": "© 2024 PriceCompare. All rights reserved."
+  },
+  "productDetail": {
+    "back": "Back",
+    "notFound": "Product not found",
+    "notFoundDescription": "The product you are looking for does not exist or has been removed.",
+    "category": "Category",
+    "subcategory": "Subcategory",
+    "currentPrice": "Current Price",
+    "bestPrice": "Best Price",
+    "priceRange": "Price Range",
+    "priceHistory": "Price History",
+    "buyNow": "Buy Now",
+    "similarProducts": "Similar Products",
+    "lowestPrice": "Lowest Price",
+    "highestPrice": "Highest Price",
+    "priceVariation": "Price Variation",
+    "sinceStart": "Since start",
+    "allTime": "All Year",
+    "lastMonths": "Last {{count}} Months"
   }
 }
 

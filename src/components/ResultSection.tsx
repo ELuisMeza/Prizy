@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import type { TypeProduct } from "@/types/product.types";
 import { FiExternalLink } from "react-icons/fi";
 import { useGetAllCategories } from "@/hooks/useGetAllCategories";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   isLoading: boolean;
@@ -23,6 +24,7 @@ export const ResultSection = ({ isLoading, products, setIsFilterDrawerOpen, hasS
   const DYNAMIC_COLORS = useDynamicColors();
   const { t, i18n } = useTranslation();
   const { categories } = useGetAllCategories();
+  const navigate = useNavigate();
 
   // Obtener el nombre de la categoría y subcategoría seleccionada
   const getCategoryDisplayName = () => {
@@ -116,8 +118,9 @@ export const ResultSection = ({ isLoading, products, setIsFilterDrawerOpen, hasS
                 key={`${product.name}-${index}`}
                 overflow="hidden"
                 bg={DYNAMIC_COLORS.cardBg}
-                _hover={{ shadow: "xl", transform: "translateY(-4px)" }}
+                _hover={{ shadow: "xl", transform: "translateY(-4px)", cursor: "pointer" }}
                 transition="all 0.3s"
+                onClick={() => navigate(`/product/${product.id}`)}
               >
                 <Box
                   h="220px"
@@ -209,6 +212,10 @@ export const ResultSection = ({ isLoading, products, setIsFilterDrawerOpen, hasS
                       size="md"
                       w="100%"
                       variant="solid"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/product/${product.id}`);
+                      }}
                     >
                       {t("results.viewDetails")}
                       <FiExternalLink
