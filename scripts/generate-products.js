@@ -168,11 +168,26 @@ function generateId(productName, store, index) {
     .replace(/(^-|-$)/g, '') + '-' + store.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + index;
 }
 
-// Función para generar historial de precios
-function generatePriceHistory(basePrice, startMonth = '2024-01', months = 12) {
+// Función para generar historial de precios con diferentes tendencias
+function generatePriceHistory(basePrice, startMonth = '2024-01', months = 12, trend = 'random') {
   const history = [];
   const [startYear, startMonthNum] = startMonth.split('-').map(Number);
   let currentPrice = basePrice;
+  
+  // Determinar la tendencia si es 'random'
+  let actualTrend = trend;
+  if (trend === 'random') {
+    const random = Math.random();
+    if (random < 0.35) {
+      actualTrend = 'downward'; // 35% bajista
+    } else if (random < 0.70) {
+      actualTrend = 'upward'; // 35% alcista
+    } else if (random < 0.85) {
+      actualTrend = 'stable'; // 15% estable
+    } else {
+      actualTrend = 'volatile'; // 15% volátil (sube y baja)
+    }
+  }
   
   for (let i = 0; i < months; i++) {
     const monthNum = startMonthNum + i;
@@ -180,8 +195,34 @@ function generatePriceHistory(basePrice, startMonth = '2024-01', months = 12) {
     const month = ((monthNum - 1) % 12) + 1;
     const monthStr = `${year}-${String(month).padStart(2, '0')}`;
     
-    // Variación de precio entre -5% y +3% cada mes, con tendencia a la baja
-    const variation = (Math.random() * 0.08 - 0.05) - (i * 0.01); // Tendencia a bajar con el tiempo
+    let variation = 0;
+    
+    switch (actualTrend) {
+      case 'downward':
+        // Tendencia bajista: variación entre -6% y -2% con ligera aceleración
+        variation = (Math.random() * 0.04 - 0.06) - (i * 0.005);
+        break;
+        
+      case 'upward':
+        // Tendencia alcista: variación entre +2% y +6% con ligera aceleración
+        variation = (Math.random() * 0.04 + 0.02) + (i * 0.005);
+        break;
+        
+      case 'stable':
+        // Precio estable: variaciones pequeñas entre -2% y +2%
+        variation = Math.random() * 0.04 - 0.02;
+        break;
+        
+      case 'volatile':
+        // Precio volátil: variaciones grandes aleatorias entre -8% y +8%
+        variation = Math.random() * 0.16 - 0.08;
+        break;
+        
+      default:
+        // Por defecto, comportamiento aleatorio
+        variation = Math.random() * 0.08 - 0.04;
+    }
+    
     currentPrice = Math.round(currentPrice * (1 + variation));
     
     history.push({
@@ -386,7 +427,10 @@ function generateProductVariants(productBase, baseIndex, numVariants = null) {
     const storeBasePrice = Math.round(productBase.basePrice * priceVariation);
     
     const id = generateId(productBase.name, store, baseIndex * 1000 + storeIndex);
-    const priceHistory = generatePriceHistory(storeBasePrice);
+    // Cada variante puede tener una tendencia diferente, pero preferiblemente la misma para el mismo producto base
+    // Esto hace que productos similares tengan comportamientos similares de precio
+    const trend = baseIndex % 10 < 3 ? 'downward' : (baseIndex % 10 < 6 ? 'upward' : 'random');
+    const priceHistory = generatePriceHistory(storeBasePrice, '2024-01', 12, trend);
     
     variants.push({
       id,
