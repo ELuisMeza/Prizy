@@ -133,6 +133,30 @@ export const ProductDetail = () => {
               <Card.Root bg={DYNAMIC_COLORS.cardBg} p={6}>
                 <Card.Body>
                   <VStack align="stretch" gap={4}>
+                    {/* Imagen del producto */}
+                    {product.image && (
+                      <Box
+                        w="100%"
+                        h="400px"
+                        overflow="hidden"
+                        borderRadius="lg"
+                        bg={DYNAMIC_COLORS.noImageBg}
+                        mb={4}
+                      >
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover'
+                          }}
+                          onError={(e: any) => {
+                            e.target.style.display = 'none';
+                          }}
+                        />
+                      </Box>
+                    )}
                     <Box>
                       <Heading size="2xl" mb={3} color={DYNAMIC_COLORS.headingColor}>
                         {product.name}
@@ -298,7 +322,7 @@ export const ProductDetail = () => {
                 maxW="5xl"
                 mx="auto"
               >
-                {similarProducts.map((similarProduct, index) => {
+                {similarProducts.map((similarProduct) => {
                   const similarLatestPrice =
                     similarProduct.price_history[
                       similarProduct.price_history.length - 1
@@ -309,7 +333,7 @@ export const ProductDetail = () => {
 
                   return (
                     <Card.Root
-                      key={index}
+                      key={similarProduct.id}
                       bg={DYNAMIC_COLORS.cardBg}
                       _hover={{ shadow: "xl", cursor: "pointer", transform: "translateY(-4px)" }}
                       transition="all 0.3s"
@@ -318,7 +342,30 @@ export const ProductDetail = () => {
                       }}
                       w="100%"
                       maxW="400px"
+                      overflow="hidden"
                     >
+                      {/* Imagen del producto similar */}
+                      {similarProduct.image && (
+                        <Box
+                          h="200px"
+                          w="100%"
+                          overflow="hidden"
+                          bg={DYNAMIC_COLORS.noImageBg}
+                        >
+                          <img
+                            src={similarProduct.image}
+                            alt={similarProduct.name}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover'
+                            }}
+                            onError={(e: any) => {
+                              e.target.style.display = 'none';
+                            }}
+                          />
+                        </Box>
+                      )}
                       <Card.Body p={6}>
                         <VStack align="stretch" gap={4}>
                           <Heading

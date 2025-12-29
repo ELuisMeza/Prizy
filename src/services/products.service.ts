@@ -55,11 +55,13 @@ export const productsService = {
       });
     }
 
-    return filteredProducts.sort((a, b) => {
+    const bestProducts = filteredProducts.sort((a, b) => {
       const lowestPriceA = Math.min(...a.price_history.map((entry) => entry.price));
       const lowestPriceB = Math.min(...b.price_history.map((entry) => entry.price));
       return lowestPriceA - lowestPriceB;
     });
+
+    return bestProducts.slice(0, 4);
   },
 
   getProductById: async (id: string): Promise<TypeProduct | null> => {

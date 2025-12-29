@@ -34,7 +34,14 @@
     "viewDetails": "View details",
     "noImage": "No image",
     "filteredBy": "Filtered by",
-    "clearFilters": "Clear filters"
+    "clearFilters": "Clear filters",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page",
+    "of": "of",
+    "showing": "Showing",
+    "to": "to",
+    "products": "products"
   },
   "features": {
     "title": "Why use PriceCompare?",

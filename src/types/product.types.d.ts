@@ -10,6 +10,7 @@ export interface TypeProduct {
     en: string;
   };
   store: string;
+  image?: string;
   price_history: {
     month: string;
     price: number;
