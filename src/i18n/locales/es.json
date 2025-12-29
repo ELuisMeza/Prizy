@@ -1,6 +1,6 @@
 {
   "header": {
-    "title": "PriceCompare",
+    "title": "Prizy",
     "categories": "Categorías",
     "deals": "Ofertas",
     "help": "Ayuda"
@@ -44,7 +44,7 @@
     "products": "productos"
   },
   "features": {
-    "title": "¿Por qué usar PriceCompare?",
+    "title": "¿Por qué usar Prizy?",
     "subtitle": "La forma más inteligente de comprar online",
     "saveMoney": {
       "title": "Ahorra Dinero",
@@ -73,7 +73,7 @@
     "privacy": "Privacidad",
     "terms": "Términos",
     "cookies": "Cookies",
-    "copyright": "© 2024 PriceCompare. Todos los derechos reservados."
+    "copyright": "© 2024 Prizy. Todos los derechos reservados."
   },
   "productDetail": {
     "back": "Volver",
